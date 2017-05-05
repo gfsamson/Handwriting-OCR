@@ -33,8 +33,8 @@ def findAccuracy(cells):
 	test_labels = train_labels.copy()
 
 	# Initiate kNN, train the data, then test it with test data for k=1
-	knn = cv2.KNearest()
-	knn.train(train,train_labels)
+	knn = cv2.ml.KNearest_create()
+	knn.train(train, cv2.ml.ROW_SAMPLE, train_labels)
 	ret,result,neighbours,dist = knn.find_nearest(test, k=5)
 
 	# Now we check the accuracy of classification
