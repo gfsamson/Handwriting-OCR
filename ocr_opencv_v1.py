@@ -17,14 +17,8 @@ def GaussianFilter(sigma):
     return mat
 
 
-def findAccuracy(cells, thisTest):
+def findAccuracy(cells):
 
-
-	preProccess1Test = np.array(thisTest)
-	finalTest = preProccess1Test.reshape(-1, 784).astype(np.float32)
-
-	#print preProccess1Test.shape
-	#print finalTest.shape
 
 	# Make it into a Numpy array. It size will be (50,100,20,20)
 	npArrayInput = np.array(cells)
@@ -54,23 +48,17 @@ def findAccuracy(cells, thisTest):
 
 
 
-
 img1 = cv2.imread('digits.png')
 gray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
 
-img2 = cv2.imread('digits_grid.png')
-gray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 
 gaussianFilter = GaussianFilter(1)
 gaussianGray1 = cv2.filter2D(gray1, -1, gaussianFilter)
-gaussianGray2 = cv2.filter2D(gray2, -1, gaussianFilter)
-
 
 # Now we split the image to 5000 cells, each 20x20 size
 cells1 = [np.hsplit(row,100) for row in np.vsplit(gaussianGray1,50)]
 
-cells2 = [np.hsplit(row,25) for row in np.vsplit(gaussianGray2,20)]
 
-findAccuracy(cells1, cells2)
+findAccuracy(cells1)
 
 
